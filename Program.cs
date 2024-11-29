@@ -18,7 +18,7 @@ namespace LoginSystem
                 Console.WriteLine("2. Login");
                 Console.WriteLine("3. Exit");
                 Console.Write("Select an option: ");
-                string choice = Console.ReadLine();
+                string? choice = Console.ReadLine();
 
                 switch (choice)
                 {
@@ -108,6 +108,19 @@ namespace LoginSystem
         {
             string hashinput = ComputeSHA256Hash(inputPassword.ToLower());
             return hashinput == storeHash;
+        }
+
+        static string GetValidInput()
+        {
+            while (true)
+            {
+                string? input = Console.ReadLine()?.Trim();
+                if(!string.IsNullOrEmpty(input))
+                {
+                    return input;
+                }
+                Console.WriteLine("Invalid input! Please enter a valid string.");
+            }
         }
 
 
