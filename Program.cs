@@ -104,6 +104,12 @@ namespace LoginSystem
             return ComputeSHA256Hash(password.ToLower());
         }
 
+        static bool VerifyPassword(string inputPassword, string storeHash)
+        {
+            string hashinput = ComputeSHA256Hash(inputPassword.ToLower());
+            return hashinput == storeHash;
+        }
+
 
 
     }
