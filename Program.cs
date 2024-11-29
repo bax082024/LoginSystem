@@ -19,7 +19,36 @@ namespace LoginSystem
                 Console.WriteLine("3. Exit");
                 Console.Write("Select an option: ");
                 string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        RegisterUser();
+                        break;
+                    case "2":
+                        LoginUser();
+                        break;
+                    case "3":
+                        Console.WriteLine("Goodbye");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again!");
+                        break;
+                }
             }
         }
+
+        static void RegisterUser()
+        {
+            Console.Write("Enter Username: ");
+            string username = Console.ReadLine();
+
+            string hashedPassword = HashPassword(password);
+            userDatabase[username] = hashedPassword;
+
+            Console.WriteLine("User registered successfully!");
+        }
+
+
     }
 }
