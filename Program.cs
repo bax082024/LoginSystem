@@ -40,13 +40,56 @@ namespace LoginSystem
 
         static void RegisterUser()
         {
-            Console.Write("Enter Username: ");
-            string username = Console.ReadLine();
+            Console.Write("Enter a username: ");
+            string? username = Console.ReadLine();
+
+            if (userDatabase.ContainsKey(username))
+            {
+                Console.WriteLine("Username already exists. Try a different one.");
+                return;
+            }
+
+            Console.Write("Enter a password: ");
+            string password = GetValidInput();
 
             string hashedPassword = HashPassword(password);
             userDatabase[username] = hashedPassword;
 
             Console.WriteLine("User registered successfully!");
+        }
+
+        static void LoginUser()
+        {
+            Console.Write("Enter your username: ");
+            string? username = Console.ReadLine();
+
+            if (!userDatabase.ContainsKey(username))
+            {
+                Console.WriteLine("Username not found. Please register first.");
+                return;
+            }
+
+            Console.Write("Enter your password: ");
+            string password = GetValidInput();
+
+            string storedHash = userDatabase[username];
+            if (VerifyPassword(password, storedHash))
+            {
+                Console.WriteLine("Login successfull!");
+            }
+            else
+            {
+                Console.WriteLine("Incorrect password!");
+            }
+        }
+
+        static string ComputeSHA256Hash(string input)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+                byte[] hashBytes = sha256.ComputeHash(inputBytes);
+            }
         }
 
 
